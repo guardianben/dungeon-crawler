@@ -19,3 +19,11 @@ function Enemy(type,health,magic,challenge,defense,attack){
 	this.Defense = defense;
 	this.Attack = attack;
 }
+
+function Gear(type,name,stats,level,rarity){//stats - array [min-damage,max-damage,crit-chance,crit-multiplier,accuracy,defense] || type - equip location: head,shoulders,chest,feet,arms,main hand,off hand
+	this.type = type;
+	this.name = name;
+	this.stats = stats;
+	this.level = level;
+	this.rarity = rarity;
+}
