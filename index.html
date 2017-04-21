@@ -9,7 +9,9 @@
 	<script type="text/javascript" src="javascript/javascript.js"></script>
 	
 	<script type = "text/javascript">
-		var player = new Self("",1,0,0,0,10,10,10,10,10,10,[],[0,0,0],100);
+		var player = new Self("",1,0,0,0,10,10,10,10,10,10,[0,0,0],100);
+		var equip = new Equipment(false,false,false,false,false,false,false,false);
+		var Inventory = [];
 	</script>
 
 	<style type="text/css">
@@ -101,64 +103,67 @@
 				<div class="charBox">
 					<table cellpadding="1" cellspacing="0">
 						<tr>
-							<td>Name:</td><td class="selfName"></td>
+							<td>Name:</td><td id="selfName"></td>
 						</tr>
 						<tr><td>&nbsp;</td></tr>
 						<tr>  
-							<td>Health:</td><td class="selfHealth"></td>
+							<td>Health:</td><td id="selfHealth"></td>
 						</tr>
 						<tr>
-							<td>Magic:</td><td class="selfMagic"></td>
+							<td>Magic:</td><td id="selfMagic"></td>
 						</tr>
 						<tr>
-							<td>XP:</td><td class="selfXp"></td>
+							<td>XP:</td><td id="selfXp"></td>
 						</tr>
 						<tr><td>&nbsp;</td></tr>
 						<tr>
 							<td colspan="2"><b>ABILITIES</b></td>
 						</tr>
 						<tr>
-							<td>Strength:</td><td class="selfStr"></td>
+							<td>Strength:</td><td id="selfStr"></td>
 						</tr>
 						<tr>
-							<td>Agility:</td><td class="selfAgi"></td>
+							<td>Agility:</td><td id="selfAgi"></td>
 						</tr>
 						<tr>
-							<td>Constitution:</td><td class="selfCon"></td>
+							<td>Constitution:</td><td id="selfCon"></td>
 						</tr>
 						<tr>
-							<td>Intelligence:</td><td class="selfInt"></td>
+							<td>Intelligence:</td><td id="selfInt"></td>
 						</tr>
 						<tr>
-							<td>Wisdom:</td><td class="selfWis"></td>
+							<td>Wisdom:</td><td id="selfWis"></td>
 						</tr>
 						<tr><td>&nbsp;</td></tr>
 						<tr>
 							<td colspan="2"><b>GEAR</b></td>
 						</tr>
 						<tr>
-							<td>Head:</td><td class="selfHead"></td>
+						  <td>Gold:</td><td id="selfGold"></td>
 						</tr>
 						<tr>
-							<td>Shoulders:</td><td class="selfShoulder"></td>
+							<td>Head:</td><td id="selfHead"></td>
 						</tr>
 						<tr>
-							<td>Chest:</td><td class="selfChest"></td>
+							<td>Shoulders:</td><td id="selfShoulder"></td>
 						</tr>
 						<tr>
-							<td>Arms:</td><td class="selfArms"></td>
+							<td>Chest:</td><td id="selfChest"></td>
 						</tr>
 						<tr>
-							<td>Legs:</td><td class="selfLegs"></td>
+							<td>Arms:</td><td id="selfArms"></td>
 						</tr>
 						<tr>
-							<td>Feet:</td><td class="selfFeet"></td>
+							<td>Legs:</td><td id="selfLegs"></td>
 						</tr>
 						<tr>
-							<td>Left Hand:</td><td class="selfLeftHand"></td>
+							<td>Feet:</td><td id="selfFeet"></td>
 						</tr>
 						<tr>
-							<td>Right Hand:</td><td class="selfRightHand"></td>
+							<td>Main Hand:</td><td id="selfMainHand"></td>
+						</tr>
+						<tr>
+							<td>Off Hand:</td><td id="selfOffHand"></td>
 						</tr>
 					</table>
 				</div>
