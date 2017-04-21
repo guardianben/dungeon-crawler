@@ -1,0 +1,172 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>GENERIC DUNGEON CRAWLER</title>
+	<script type="text/javascript" src="jquery/jquery.js"></script>
+	<script type="text/javascript" src="jquery/jquery-ui/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="javascript/objectPrototypes.js"></script>
+	<script type="text/javascript" src="javascript/javascript.js"></script>
+	
+	<script type = "text/javascript">
+		var player = new Self("",1,0,0,0,10,10,10,10,10,10,[],[0,0,0],100);
+	</script>
+
+	<style type="text/css">
+		.container {position:relative; width: 1280px; height: 800px; margin: 0 auto; overflow:hidden;}
+		.midContain {position:relative;}
+		.charBox {position:absolute; background-color:#09F; height:560px; width:300px; left:0px;}
+		.displayBox {position:absolute; background-color:#000; height:560px; width:68000px; left:300px;}
+		.infoBox {position:absolute; width: 300px; height:560px; background-color:#09F; right:0px;}
+		.controlBox {position:absolute; bottom:0px; width:1280px; background-color:#CCC; height:200px;}
+		ul.menu {list-style-type: none; margin: 0; padding: 0; background-color: #dddddd; overflow: hidden; background-color: #666; position: relative; top: 0; right: 0; width:100%; z-index:999999; }
+		.menu li {display: inline; float: left; border-right: 1px solid #bbb;}
+		.menu li a {display: block; padding: 8px; width: 100px; height:100%; text-decoration: none; color: white; text-align: center; }
+		.menu li:nth-last-child(2),li:last-child {border-right: none; border-left: 1px solid #bbb; }
+		.menu li a:hover:not(.active) {background-color:#333;}
+	</style>
+</head>
+
+<body>
+	<form id="start">
+		<h1 align="center">GENERIC DUNGEON CRAWLER</h1>
+		<div align="center">
+			<input type="button" name="NewGame" value="New Game" onClick="toggle('newGame','start')" /><br/><br/>
+			<input type="button" name="LoadGame" value="Load Game"/><br/><br/>
+			<input type="button" name="Options" value="Options"/>
+		</div>
+	</form>
+	
+	<form id="newGame" style="display:none;">
+		<h1 align="center">Character Creation</h1>
+		Name:
+		<input type="text" name="TxName" /><br/><br/>
+		Remaining Points: <span id="PointsRemain">10</span>
+		<table cellpadding="1" cellspacing="0">
+		<tr>
+		  <td title="Strength affects physical damage.">Strength:</td>
+		  <td>
+			<span id="StrSpan">10</span>
+			<input type="button" name="StrUp" value="+" onClick="addPoint('Strength','StrSpan');" />
+			<input type="button" name="StrDown" value="-" onClick="removePoint('Strength','StrSpan');" />
+		  </td>
+		</tr>
+		<tr>
+		  <td title="Agility affects ranged weapon damage and accuracy.">Agility:</td>
+		  <td>
+			<span id="AgiSpan">10</span>
+			<input type="button" name="AgiUp" value="+" onClick="addPoint('Agility','AgiSpan');" />
+			<input type="button" name="AgiDown" value="-" onClick="removePoint('Agility','AgiSpan');" />
+		  </td>
+		</tr>
+		<tr>
+		  <td title="Constituion affects Health and Physical Resistances.">Constitution:</td>
+		  <td>
+			<span id="ConSpan">10</span>
+			<input type="button" name="ConUp" value="+" onClick="addPoint('Constitution','ConSpan');" />
+			<input type="button" name="ConDown" value="-" onClick="removePoint('Constitution','ConSpan');" />
+		  </td>
+		</tr>
+		<tr>
+		  <td title="Intelligence affects Magic capacity and Magic Damage.">Intelligence:</td>
+		  <td>
+			<span id="IntSpan">10</span>
+			<input type="button" name="IntUp" value="+" onClick="addPoint('Intelligence','IntSpan');" />
+			<input type="button" name="IntDown" value="-" onClick="removePoint('Intelligence','IntSpan');" />
+		  </td>
+		</tr>
+		<tr>
+		  <td title="Wisdom affects Magic Regeneration and Magic Resistances.">Wisdom:</td>
+		  <td>
+			<span id="WisSpan">10</span>
+			<input type="button" name="WisUp" value="+" onClick="addPoint('Wisdom','WisSpan');" />
+			<input type="button" name="WisDown" value="-" onClick="removePoint('Wisdom','WisSpan');" />
+		  </td>
+		</tr>
+		</table>
+		<br/><br/>
+		<input type="button" name="Confirm" value="Confirm" onClick="confirmChar();" />
+	</form>
+	
+	<form id="gameScreen" style="display:none;">
+		<div class="container">
+			<ul class="menu">
+				<li><a href="javascript:function();" class="bar1">File</a></li>
+				<li><a href="javascript:function();" class="bar2">Other Menu</a></li>
+				<li><a href="javascript:funciton();" class="bar3">Other Menu 2</a></li>
+				<li><a href="javascript:function();" class="bar5">Other Menu 3</a></li>
+				<li style="float:right"><a href="javascript:function();" class="bar4">Help</a></li>
+			</ul>
+			<div class="midContain">
+				<div class="charBox">
+					<table cellpadding="1" cellspacing="0">
+						<tr>
+							<td>Name:</td><td class="selfName"></td>
+						</tr>
+						<tr><td>&nbsp;</td></tr>
+						<tr>  
+							<td>Health:</td><td class="selfHealth"></td>
+						</tr>
+						<tr>
+							<td>Magic:</td><td class="selfMagic"></td>
+						</tr>
+						<tr>
+							<td>XP:</td><td class="selfXp"></td>
+						</tr>
+						<tr><td>&nbsp;</td></tr>
+						<tr>
+							<td colspan="2"><b>ABILITIES</b></td>
+						</tr>
+						<tr>
+							<td>Strength:</td><td class="selfStr"></td>
+						</tr>
+						<tr>
+							<td>Agility:</td><td class="selfAgi"></td>
+						</tr>
+						<tr>
+							<td>Constitution:</td><td class="selfCon"></td>
+						</tr>
+						<tr>
+							<td>Intelligence:</td><td class="selfInt"></td>
+						</tr>
+						<tr>
+							<td>Wisdom:</td><td class="selfWis"></td>
+						</tr>
+						<tr><td>&nbsp;</td></tr>
+						<tr>
+							<td colspan="2"><b>GEAR</b></td>
+						</tr>
+						<tr>
+							<td>Head:</td><td class="selfHead"></td>
+						</tr>
+						<tr>
+							<td>Shoulders:</td><td class="selfShoulder"></td>
+						</tr>
+						<tr>
+							<td>Chest:</td><td class="selfChest"></td>
+						</tr>
+						<tr>
+							<td>Arms:</td><td class="selfArms"></td>
+						</tr>
+						<tr>
+							<td>Legs:</td><td class="selfLegs"></td>
+						</tr>
+						<tr>
+							<td>Feet:</td><td class="selfFeet"></td>
+						</tr>
+						<tr>
+							<td>Left Hand:</td><td class="selfLeftHand"></td>
+						</tr>
+						<tr>
+							<td>Right Hand:</td><td class="selfRightHand"></td>
+						</tr>
+					</table>
+				</div>
+				<div class="displayBox"></div>
+				<div class="infoBox"></div>
+			</div>
+			<div class="controlBox"></div>
+		</div>
+	</form>
+</body>
+</html>
