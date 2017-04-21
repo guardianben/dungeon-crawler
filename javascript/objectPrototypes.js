@@ -1,6 +1,5 @@
-function Self(name,race,health,magic,xp,str,agi,con,Int,wis){
+function Self(name,health,magic,xp,str,agi,con,Int,wis,rempoint){
 	this.Name = name;
-	this.Race = race;
 	this.Health = health;
 	this.Magic = magic;
 	this.XP = xp;
@@ -9,6 +8,7 @@ function Self(name,race,health,magic,xp,str,agi,con,Int,wis){
 	this.Constitution = con;
 	this.Intelligence = Int;
 	this.Wisdom = wis;
+	this.pointsRemain = rempoint;
 }
 
 function Enemy(type,health,magic,challenge,defense,attack){
