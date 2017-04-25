@@ -1,123 +1,130 @@
-function addPoint(stat,obj){
+function addPoint(stat,bol){
 	if(player.pointsRemain > 0){
 		player[stat]++;
-		$("#" + obj).empty();
-		$("#" + obj).append(player[stat]);
 		player.pointsRemain--;
-		$("#PointsRemain").empty();
-		$("#PointsRemain").append(player.pointsRemain);
+		if(bol == true){
+			beginUpdate(stat);
+		}
+		else{
+			updateSubStats(stat);
+		}
 	}
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-function removePoint(stat,obj){
+function removePoint(stat,bol){
 	if(player[stat] > 1){
 		player[stat]--;
-		$("#" + obj).empty();
-		$("#" + obj).append(player[stat]);
 		player.pointsRemain++;
-		$("#PointsRemain").empty();
-		$("#PointsRemain").append(player.pointsRemain);
+		if(bol == true){
+			beginUpdate(stat);
+		}
 	}
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+function beginUpdate(stat){
+	$("#" + stat + "Span").empty();
+	$("#" + stat + "Span").append(player[stat]);
+	$("#PointsRemain").empty();
+	$("#PointsRemain").append(player.pointsRemain);
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+function updateSubStats(stat){
+	switch(stat){
+		case 'Constitution':
+			player.Health = player.Constitution * 5;
+			player.CurrentHealth = player.CurrentHealth + 5;
+			loadChar();
+			break;
+		
+		case 'Intelligence':
+			player.Magic = player.Intelligence * 5;
+			player.CurrentMagic = player.CurrentMagic + 5;
+			loadChar();
+			break;
+		
+		default:
+			loadChar();
+	}
+	
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 function confirmChar(){
-	if(document.getElementsByName("TxName")[0].value != ""){
-		if(confirm("Confirm your character.\n\nName: " + document.getElementsByName("TxName")[0].value + "\n\nStrength: " + player.Strength + "\nAgility: " + player.Agility + "\nConstitution: " + player.Constitution + "\nIntelligence: " + player.Intelligence + "\nWisdom: " + player.Wisdom) == true){
-			player.Name = document.getElementsByName("TxName")[0].value;
+	if(document.getElementById("TxName").value != ""){
+		if(confirm("Confirm your character.\n\nName: " + document.getElementById("TxName").value + "\n\nStrength: " + player.Strength + "\nAgility: " + player.Agility + "\nConstitution: " + player.Constitution + "\nIntelligence: " + player.Intelligence + "\nWisdom: " + player.Wisdom) == true){
+			player.Name = document.getElementById("TxName").value;
 			player.Health = player.Constitution * 5;
+			player.CurrentHealth = player.Health;
 			player.Magic = player.Intelligence * 5;
+			player.CurrentMagic = player.Magic;
 			loadChar();
 			toggle('gameScreen','newGame');
 		}
 	}
 	else{
-		document.getElementsByName("TxName")[0].style.background="#f00";
+		document.getElementById("TxName").style.background="#f00";
 		alert("Please provide a name for your character.");
 	}
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+function updateStat(stat){
+	$("#self" + stat).empty();
+	$("#self" + stat).append(player[stat]);
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+function updateGear(gear){
+	$("#self" + gear).empty();
+	
+	if(equip[gear] != false){
+		$("#self" + gear).append(equip[gear].Name);
+	}
+	else{
+		switch(gear){
+			case 'Chest':
+				$("#self" + gear).append(shirt.Name);
+				break;
+			
+			case 'Legs':
+				$("#self" + gear).append(pants.Name);
+				break;
+			
+			case 'MainHand':
+				$("#self" + gear).append(fists.Name);
+				break;
+			
+			case 'OffHand':
+				$("#self" + gear).append(fists.Name);
+				break;
+			
+			default:
+				$("#self" + gear).append(nothing.Name);
+		}
+	}
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 function loadChar(){
-	$("#selfName").empty();
-	$("#selfName").append(player.Name);
-	$("#selfHealth").empty();
-	$("#selfHealth").append(player.Health);
-	$("#selfMagic").empty();
-	$("#selfMagic").append(player.Magic);
-	$("#selfXp").empty();
-	$("#selfXp").append(player.XP);
-	$("#selfStr").empty();
-	$("#selfStr").append(player.Strength);
-	$("#selfAgi").empty();
-	$("#selfAgi").append(player.Agility);
-	$("#selfCon").empty();
-	$("#selfCon").append(player.Constitution);
-	$("#selfInt").empty();
-	$("#selfInt").append(player.Intelligence);
-	$("#selfWis").empty();
-	$("#selfWis").append(player.Wisdom);
-	$("#selfGold").empty();
-	$("#selfGold").append(player.Gold);
-	$("#selfHead").empty();
-	if(equip.Head == false){
-		$("#selfHead").append(nothing.Name);
+	var statArray = ['Name','Level','CurrentHealth','Health','CurrentMagic','Magic','Xp','Strength','Agility','Constitution','Intelligence','Wisdom','Gold'];
+	var gearArray = ['Head','Shoulders','Chest','Arms','Legs','Feet','MainHand','OffHand'];
+	
+	for(var i=0;i<statArray.length;i++){
+		updateStat(statArray[i]);
 	}
-	else{
-		$("#selfHead").append(equip.Head.Name);
-	}
-	$("#selfShoulder").empty();
-	if(equip.Shoulders == false){
-		$("#selfShoulder").append(nothing.Name);
-	}
-	else{
-		$("#selfShoulder").append(equip.Shoulders.Name);
-	}
-	$("#selfChest").empty();
-	if(equip.Chest == false){
-		$("#selfChest").append(shirt.Name);
-	}
-	else{
-		$("#selfChest").append(equip.Chest.Name);
-	}
-	$("#selfArms").empty();
-	if(equip.Arms == false){
-		$("#selfArms").append(nothing.Name);
-	}
-	else{
-		$("#selfArms").append(equip.Arms.Name);
-	}
-	$("#selfLegs").empty();
-	if(equip.Legs == false){
-		$("#selfLegs").append(pants.Name);
-	}
-	else{
-		$("#selfLegs").append(equip.Legs.Name);
-	}
-	$("#selfFeet").empty();
-	if(equip.Feet == false){
-		$("#selfFeet").append(nothing.Name);
-	}
-	else{
-		$("#selfFeet").append(equip.Feet.Name);
-	}
-	$("#selfMainHand").empty();
-	if(equip.Main_Hand == false){
-		$("#selfMainHand").append(fists.Name);
-	}
-	else{
-		$("#selfMainHand").append(equip.Main_Hand.Name);
-	}
-	$("#selfOffHand").append();
-	if(equip.Off_Hand == false){
-		$("#selfOffHand").append(fists.Name);
-	}
-	else{
-		$("#selfOffHand").append(equip.Off_hand.Name);
+	
+	for(var i=0;i<gearArray.length;i++){
+		updateGear(gearArray[i]);
 	}
 }
 
@@ -129,3 +136,11 @@ function toggle(obj1,obj2){
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+function checkLevel(){
+	if(player.Xp >= 1000 * player.Level * player.Level){
+		player.Level++;
+		player.pointsRemain += 5;
+		$(".LevelUp").show();
+	}
+}

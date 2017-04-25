@@ -1,8 +1,10 @@
 function Self(name,level,health,magic,xp,str,agi,con,Int,wis,rempoint,loc,gold){
 	this.Name = name;
 	this.Level = level;
+	this.CurrentHealth = health;
 	this.Health = health;
 	this.Magic = magic;
+	this.CurrentMagic = magic;
 	this.XP = xp;
 	this.Strength = str;
 	this.Agility = agi;
@@ -21,8 +23,8 @@ function Equipment(head,shoulders,chest,arms,legs,feet,mHand,oHand){
 	this.Arms = arms;
 	this.Legs = legs;
 	this.Feet = feet;
-	this.Main_Hand = mHand;
-	this.Off_Hand = oHand;
+	this.MainHand = mHand;
+	this.OffHand = oHand;
 }
 
 function Enemy(type,health,magic,challenge,defense,attack,loc){

@@ -33,61 +33,61 @@
 	<form id="start">
 		<h1 align="center">GENERIC DUNGEON CRAWLER</h1>
 		<div align="center">
-			<input type="button" name="NewGame" value="New Game" onClick="toggle('newGame','start')" /><br/><br/>
-			<input type="button" name="LoadGame" value="Load Game"/><br/><br/>
-			<input type="button" name="Options" value="Options"/>
+			<input type="button" id="NewGame" value="New Game" onClick="toggle('newGame','start')" /><br/><br/>
+			<input type="button" id="LoadGame" value="Load Game"/><br/><br/>
+			<input type="button" id="Options" value="Options"/>
 		</div>
 	</form>
 	
 	<form id="newGame" style="display:none;">
 		<h1 align="center">Character Creation</h1>
 		Name:
-		<input type="text" name="TxName" /><br/><br/>
+		<input type="text" id="TxName" /><br/><br/>
 		Remaining Points: <span id="PointsRemain">10</span>
 		<table cellpadding="1" cellspacing="0">
 		<tr>
 		  <td title="Strength affects physical damage.">Strength:</td>
 		  <td>
-			<span id="StrSpan">10</span>
-			<input type="button" name="StrUp" value="+" onClick="addPoint('Strength','StrSpan');" />
-			<input type="button" name="StrDown" value="-" onClick="removePoint('Strength','StrSpan');" />
+			<span id="StrengthSpan">10</span>
+			<input type="button" id="StrengthUp" value="+" onClick="addPoint('Strength',true);" />
+			<input type="button" id="StrengthDown" value="-" onClick="removePoint('Strength',true);" />
 		  </td>
 		</tr>
 		<tr>
 		  <td title="Agility affects ranged weapon damage and accuracy.">Agility:</td>
 		  <td>
-			<span id="AgiSpan">10</span>
-			<input type="button" name="AgiUp" value="+" onClick="addPoint('Agility','AgiSpan');" />
-			<input type="button" name="AgiDown" value="-" onClick="removePoint('Agility','AgiSpan');" />
+			<span id="AgilitySpan">10</span>
+			<input type="button" id="AgilityUp" value="+" onClick="addPoint('Agility',true);" />
+			<input type="button" id="AgilityDown" value="-" onClick="removePoint('Agility',true);" />
 		  </td>
 		</tr>
 		<tr>
-		  <td title="Constituion affects Health and Physical Resistances.">Constitution:</td>
+		  <td title="Constitution affects Health and Physical Resistances.">Constitution:</td>
 		  <td>
-			<span id="ConSpan">10</span>
-			<input type="button" name="ConUp" value="+" onClick="addPoint('Constitution','ConSpan');" />
-			<input type="button" name="ConDown" value="-" onClick="removePoint('Constitution','ConSpan');" />
+			<span id="ConstitutionSpan">10</span>
+			<input type="button" id="ConstitutionUp" value="+" onClick="addPoint('Constitution',true);" />
+			<input type="button" id="ConstitutionDown" value="-" onClick="removePoint('Constitution',true);" />
 		  </td>
 		</tr>
 		<tr>
 		  <td title="Intelligence affects Magic capacity and Magic Damage.">Intelligence:</td>
 		  <td>
-			<span id="IntSpan">10</span>
-			<input type="button" name="IntUp" value="+" onClick="addPoint('Intelligence','IntSpan');" />
-			<input type="button" name="IntDown" value="-" onClick="removePoint('Intelligence','IntSpan');" />
+			<span id="IntelligenceSpan">10</span>
+			<input type="button" id="IntelligenceUp" value="+" onClick="addPoint('Intelligence',true);" />
+			<input type="button" id="IntelligenceDown" value="-" onClick="removePoint('Intelligence',true);" />
 		  </td>
 		</tr>
 		<tr>
 		  <td title="Wisdom affects Magic Regeneration and Magic Resistances.">Wisdom:</td>
 		  <td>
-			<span id="WisSpan">10</span>
-			<input type="button" name="WisUp" value="+" onClick="addPoint('Wisdom','WisSpan');" />
-			<input type="button" name="WisDown" value="-" onClick="removePoint('Wisdom','WisSpan');" />
+			<span id="WisdomSpan">10</span>
+			<input type="button" id="WisdomUp" value="+" onClick="addPoint('Wisdom',true);" />
+			<input type="button" id="WisdomDown" value="-" onClick="removePoint('Wisdom',true);" />
 		  </td>
 		</tr>
 		</table>
 		<br/><br/>
-		<input type="button" name="Confirm" value="Confirm" onClick="confirmChar();" />
+		<input type="button" id="Confirm" value="Confirm" onClick="confirmChar();" />
 	</form>
 	
 	<form id="gameScreen" style="display:none;">
@@ -103,67 +103,70 @@
 				<div class="charBox">
 					<table cellpadding="1" cellspacing="0">
 						<tr>
-							<td>Name:</td><td id="selfName"></td>
+							<td>Name:</td><td><span id="selfName"></span></td>
+						</tr>
+						<tr>
+							<td>Level:</td><td><span id="selfLevel"></span></td>
 						</tr>
 						<tr><td>&nbsp;</td></tr>
 						<tr>  
-							<td>Health:</td><td id="selfHealth"></td>
+							<td>Health:</td><td><span id="selfCurrentHealth"></span>/<span id="selfHealth"></span></td>
 						</tr>
 						<tr>
-							<td>Magic:</td><td id="selfMagic"></td>
+							<td>Magic:</td><td><span id="selfCurrentMagic"></span>/<span id="selfMagic"></span></td>
 						</tr>
 						<tr>
-							<td>XP:</td><td id="selfXp"></td>
+							<td>XP:</td><td><span id="selfXp"></span></td>
 						</tr>
 						<tr><td>&nbsp;</td></tr>
 						<tr>
 							<td colspan="2"><b>ABILITIES</b></td>
 						</tr>
 						<tr>
-							<td>Strength:</td><td id="selfStr"></td>
+							<td>Strength:</td><td><span id="selfStrength"></span><input type="button" id="StrengthButton" class="LevelUp" onClick="addPoint('Strength')" style="display:none;" /></td>
 						</tr>
 						<tr>
-							<td>Agility:</td><td id="selfAgi"></td>
+							<td>Agility:</td><td><span id="selfAgility"></span><input type="button" id="AgilityButton" class="LevelUp" onClick="addPoint('Agility')" style="display:none;" /></td>
 						</tr>
 						<tr>
-							<td>Constitution:</td><td id="selfCon"></td>
+							<td>Constitution:</td><td><span id="selfConstitution"></span><input type="button" id="ConstitutionButton" class="LevelUp" onClick="addPoint('Constitution')" style="display:none;" /></td>
 						</tr>
 						<tr>
-							<td>Intelligence:</td><td id="selfInt"></td>
+							<td>Intelligence:</td><td><span id="selfIntelligence"></span><input type="button" id="IntelligenceButton" class="LevelUp" onClick="addPoint('Intelligence')" style="display:none;" /></td>
 						</tr>
 						<tr>
-							<td>Wisdom:</td><td id="selfWis"></td>
+							<td>Wisdom:</td><td><span id="selfWisdom"></span><input type="button" id="WisdomButton" class="LevelUp" onClick="addPoint('Wisdom')" style="display:none;" /></td>
 						</tr>
 						<tr><td>&nbsp;</td></tr>
 						<tr>
 							<td colspan="2"><b>GEAR</b></td>
 						</tr>
 						<tr>
-						  <td>Gold:</td><td id="selfGold"></td>
+						  <td>Gold:</td><td><span id="selfGold"></span></td>
 						</tr>
 						<tr>
-							<td>Head:</td><td id="selfHead"></td>
+							<td>Head:</td><td><span id="selfHead"></span></td>
 						</tr>
 						<tr>
-							<td>Shoulders:</td><td id="selfShoulder"></td>
+							<td>Shoulders:</td><td><span id="selfShoulders"></span></td>
 						</tr>
 						<tr>
-							<td>Chest:</td><td id="selfChest"></td>
+							<td>Chest:</td><td><span id="selfChest"></span></td>
 						</tr>
 						<tr>
-							<td>Arms:</td><td id="selfArms"></td>
+							<td>Arms:</td><td><span id="selfArms"></span></td>
 						</tr>
 						<tr>
-							<td>Legs:</td><td id="selfLegs"></td>
+							<td>Legs:</td><td><span id="selfLegs"></span></td>
 						</tr>
 						<tr>
-							<td>Feet:</td><td id="selfFeet"></td>
+							<td>Feet:</td><td><span id="selfFeet"></span></td>
 						</tr>
 						<tr>
-							<td>Main Hand:</td><td id="selfMainHand"></td>
+							<td>Main Hand:</td><td><span id="selfMainHand"></span></td>
 						</tr>
 						<tr>
-							<td>Off Hand:</td><td id="selfOffHand"></td>
+							<td>Off Hand:</td><td><span id="selfOffHand"></span></td>
 						</tr>
 					</table>
 				</div>
