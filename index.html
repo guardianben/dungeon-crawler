@@ -21,16 +21,19 @@
 		.displayBox {position:absolute; background-color:#000; height:560px; width:68000px; left:300px;}
 		.infoBox {position:absolute; width: 300px; height:560px; background-color:#09F; right:0px;}
 		.controlBox {position:absolute; bottom:0px; width:1280px; background-color:#CCC; height:200px;}
+		.controlHand {position:relative;width:25%; height:100%; float:left; text-align: center;}
+		.controlMain {position:relative; width:50%; height:100%; float:left;}
 		ul.menu {list-style-type: none; margin: 0; padding: 0; background-color: #dddddd; overflow: hidden; background-color: #666; position: relative; top: 0; right: 0; width:100%; z-index:999999; }
 		.menu li {display: inline; float: left; border-right: 1px solid #bbb;}
 		.menu li a {display: block; padding: 8px; width: 100px; height:100%; text-decoration: none; color: white; text-align: center; }
 		.menu li:nth-last-child(2),li:last-child {border-right: none; border-left: 1px solid #bbb; }
 		.menu li a:hover:not(.active) {background-color:#333;}
+		.map td {height:50px; width:50px;}
 	</style>
 </head>
 
 <body>
-	<form id="start">
+	<form id="start" style="display:none;">
 		<h1 align="center">GENERIC DUNGEON CRAWLER</h1>
 		<div align="center">
 			<input type="button" id="NewGame" value="New Game" onClick="toggle('newGame','start')" /><br/><br/>
@@ -90,7 +93,7 @@
 		<input type="button" id="Confirm" value="Confirm" onClick="confirmChar();" />
 	</form>
 	
-	<form id="gameScreen" style="display:none;">
+	<form id="gameScreen">
 		<div class="container">
 			<ul class="menu">
 				<li><a href="javascript:function();" class="bar1">File</a></li>
@@ -170,10 +173,86 @@
 						</tr>
 					</table>
 				</div>
-				<div class="displayBox"></div>
+				<div class="displayBox">
+					<table class="map" border="1" border-color="black" style="position:absolute; background-color:white; top:20px;">
+						<tr>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+						</tr>
+						<tr>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+						</tr>
+						<tr>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+						</tr>
+						<tr>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+						</tr>
+						<tr>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+						</tr>
+						<tr>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+						</tr>
+					</table>
+				</div>
 				<div class="infoBox"></div>
 			</div>
-			<div class="controlBox"></div>
+			<div class="controlBox">
+				<div class="controlHand">
+					<input type="button" id="MainHandButton" value="Main Hand" style="width:100px; height:100px;" />
+				</div>
+				<div class="controlMain">
+					<span style="position:absolute; top:20px; left:100px;"><input type="button" id="UpButton" value="Up" style="width:50px; height:50px;" /></span>
+					<span style="position:absolute; top:130px; left:100px;"><input type="button" id="DownButton" value="Down" style="width:50px; height:50px;" /></span>
+					<span style="position:absolute; top:75px; left:45px;"><input type="button" id="LeftButton" value="Left" style="width:50px; height:50px;" /></span>
+					<span style="position:absolute; top:75px; left:155px;"><input type="button" id="RightButton" value="Right" style="width:50px; height:50px;" /></span>
+					<span style="position:absolute; top:25px; right:75px;"><input type="button" id="ItemButton" value="Use Item" style="width:100px; height:30px;" />
+					<select id="ItemDrop" style="height:30px;" >
+						<option>NONE</option>
+					</select></span>
+					<span style="position:absolute; top:75px; right:75px;"><input type="button" id="SpellButton" value="Use Spell" style="width:100px; height:30px;" />
+					<select id="SpellDrop" style="height:30px;" >
+						<option>NONE</option>
+					</select></span>
+					<span style="position:absolute; top:125px; right:75px;"><input type="button" id="AbilityButton" value="Use Ability" style="width:100px; height:30px;" />
+					<select id="AbilityDrop" style="height:30px;" >
+					  <option>NONE</option>
+					</select></span>
+				</div>
+				<div class="controlHand">
+					<input type="button" id="OffHandButton" value="Off Hand" style="width:100px; height:100px;" />
+				</div>
+			</div>
 		</div>
 	</form>
 </body>
